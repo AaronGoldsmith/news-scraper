@@ -1,15 +1,14 @@
 // Dependencies
-var bodyParser = require("body-parser")
-   var express = require("express");
-   var mongojs = require("mongoose");
-   var request = require("request");
-   var mongojs = require("mongojs")
-   var axios = require('axios')
-   var cheerio = require("cheerio");
-
-   var logger  = require('morgan')
-   var mongoose = require('mongoose');
-   var models = require('./models/Article')
+var bp      = require("body-parser")      //\   JSON parser
+var express = require("express");        // |   server 
+var mongojs = require("mongoose");      //  |   ORM
+var request = require("request");      //   |   GET
+var mongojs = require("mongojs")      //    |   DB
+var axios   = require('axios');      //=====|   BKND
+var cheerio = require("cheerio");   //      |   DOM     
+var logger  = require('morgan')    //       |   LOGGER  
+                                  //        |   model 
+var models  = require('./models/Article') 
 
 
  // Initialize Express
@@ -19,7 +18,7 @@ var app = express();
 app.use(logger("dev"));
 app.use(express.static("public"));
 app.use(
-  bodyParser.urlencoded({
+  bp.urlencoded({
     extended: false
   })
 );
@@ -31,7 +30,8 @@ var collections = ["onion"];
 
 
 // Hook mongojs configuration to the db variable
-var db = mongojs(databaseUrl, collections);
+// var db = mongojs(databaseUrl, collections);
+var db = require('./models/Article')
 db.on("error", function(error) {
   console.log("Database Error:", error);
 });
@@ -78,17 +78,17 @@ app.get("/clearall",function(req,res){
   db.onion.drop()
   res.send(true);
 })
-app.get("/scrape", function(req, res) {
+axios.get("/scrape", function(req, res) {
   request("https://www.theonion.com/", function(error, response, html) {
    if(!error){
      const $ = cheerio.load(html);
-     $(".post-wrapper").each(function(i, element){
+     $(".post-wrapper").each(function(i, element){ // if this doesn't work try with `this`
       var headline = $(element).find(".headline").text();                   // don't touch
       var anchor = $(element).find("article").find("figure a").attr("href") // don't touch
       var unique = $(element).find("article").attr('id').split("_")[1] // don't touch
       var shortsum = $(element).children().find(".entry-summary").text() // don't touch
       var image = $(element).children().find("source").attr('data-srcset') // don't touch
-      
+      var tempID = inserted.unique.substring(inserted.unique.length/2);
       var postObj = {
             headline : headline,
             anchor : anchor,
@@ -97,24 +97,21 @@ app.get("/scrape", function(req, res) {
             unique: unique
       }
       if(headline && anchor && shortsum){
-        db.onion.save( postObj , function(err,inserted){
-            if(err){
-              console.log("ERROR\n"+err);
-            }
-            else{
-              console.log("inserted\n"+inserted.unique.substring(inserted.unique.length/2))
-            }
-          })
+        db.Article.create(postObj).then(function(inserted){ 
+          console.log("inserted \n" + inserted)
+        })
+        .catch(function(err){
+          return res.json(err);
+        });   
       }
-    else{
-      console.log("couldn't get data from the site")
-    }
+      else{
+        console.log("couldn't get data from the site")
+      }
   })
-    // Send a "Scrape Complete" message to the browser
-    res.send(true)
+    res.send("finished scraping")
     }
-  })
-})
+  });
+});
 // Listen on port 3000
 app.listen(3000, function() {
   console.log("App running on port 3000!");

@@ -11,7 +11,6 @@ var ArticleSchema = new Schema({
     type: String,
     required: true
   },
-  // `link` is required and of type String
   anchor: {
     type: String,
     required: true
