@@ -1,0 +1,55 @@
+
+body{
+  background: white ;
+}
+h1 {
+  font-size: 40px;
+  color: white;
+}
+.delete {
+  margin-left: 20px;
+  color: #333;
+  cursor: pointer;
+  text-align: left;
+  font-size: 1.2em;
+}
+.delete:hover{
+  color: red;
+}
+.data-title {
+  cursor: pointer;
+  font-size: 24px;
+}
+#results {
+  height: 600px;
+  overflow: auto;
+
+  margin: 20px auto;
+}
+
+.card{
+  height: auto;
+  text-overflow:ellipsis ;
+}
+#fav:hover{
+  color:blue;
+}
+
+#summary{
+  position:relative;
+  top:-15px;
+}
+img#article{
+  left: 20px;
+  float:right;
+  max-width: 250px;
+  padding:20px;
+}
+#wrapper{
+  width: 50%;
+}
+.full{
+  position: relative;
+  top: 20px;
+  left: -15px;
+}
