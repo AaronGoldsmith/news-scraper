@@ -7,7 +7,7 @@ var cheerio = require("cheerio");     //      |   DOM
 var logger  = require('morgan')      //       |   LOGGER  
                                     //        |   model 
 var models  = require('./models/Article') 
-var PORT = process.env.PORT || 8080;
+var PORT = process.env.PORT || 3000;
 
 
  // Initialize Express
@@ -65,11 +65,11 @@ app.get("/scrape", function(req, res) {
   axios.get("https://www.theonion.com/").then(function(response) {
      var $ = cheerio.load(response.data);
      $(".post-wrapper").each(function(i, element){ // if this doesn't work try with `this`
-      var headline = $(this).find(".headline").text();                   // don't touch
-      var anchor = $(this).find("article").find("figure a").attr("href") // don't touch
-      var unique = $(this).find("article").attr('id').split("_")[1] // don't touch
-      var shortsum = $(this).children().find(".entry-summary").text() // don't touch
-      var image = $(this).children().find("source").attr('data-srcset') // don't touch
+      const headline = $(this).find(".headline").text();                   // don't touch
+      const anchor = $(this).find("article").find("figure a").attr("href") // don't touch
+      const unique = $(this).find("article").attr('id').split("_")[1] // don't touch
+      const shortsum = $(this).children().find(".entry-summary").text() // don't touch
+      const image = $(this).children().find("source").attr('data-srcset') // don't touch
       // console.log(image);
       var postObj = {
             headline : headline,
@@ -78,8 +78,15 @@ app.get("/scrape", function(req, res) {
             shortsum : shortsum,
             image : image
       }
-      // if(headline && anchor && shortsum){
-      //   try{db.Article.create(postObj)
+
+      if(headline && anchor && shortsum){
+        db.Article.create(postObj).then(function(dbArticle){
+          console.log(dbArticle);
+        }).catch(function(err){
+          return res.json(err);
+        })
+      }
+      //   try{
       //     return res.json(postObj);
       //   }
       //   catch
