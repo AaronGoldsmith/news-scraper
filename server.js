@@ -9,7 +9,7 @@ var logger  = require('morgan')      //       |   LOGGER
 var models  = require('./models/Article') 
 var PORT = process.env.PORT || 8080;
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scraper";
+
  // Initialize Express
  // Setup [ using body-parser, dev logging, static folder]
 
@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({extended: true})
 
 
 var db = require('./models')
-
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scraper";
 mongoose.connect(MONGODB_URI);
 
   
@@ -78,15 +78,18 @@ app.get("/scrape", function(req, res) {
             shortsum : shortsum,
             image : image
       }
-      if(headline && anchor && shortsum){
-        try{db.Article.create(postObj)
-          return res.json(postObj);
-        }
-        catch{(err) => {return res.json(err);}}
-      }
-      else{
-        console.log("couldn't get data from the site")
-      }
+      // if(headline && anchor && shortsum){
+      //   try{db.Article.create(postObj)
+      //     return res.json(postObj);
+      //   }
+      //   catch
+      //   {
+      //     (err) => {res.json(err)
+      //   }
+      // }
+      // else {
+      //   console.log("couldn't get data from the site")
+      // }
     });
     res.send("finished scraping")
   })
