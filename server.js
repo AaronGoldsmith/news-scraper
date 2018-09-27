@@ -70,7 +70,6 @@ app.get("/scrape", function(req, res) {
       const unique = $(this).find("article").attr('id').split("_")[1] // don't touch
       const shortsum = $(this).children().find(".entry-summary").text() // don't touch
       const image = $(this).children().find("source").attr('data-srcset') // don't touch
-      // console.log(image);
       var postObj = {
             headline : headline,
             anchor : anchor,
@@ -79,7 +78,7 @@ app.get("/scrape", function(req, res) {
             image : image
       }
 
-      if(headline && anchor && shortsum){
+      if(headline && image){
         db.Article.create(postObj).then(function(dbArticle){
           console.log(dbArticle);
           res.json(dbArticle);
@@ -87,17 +86,6 @@ app.get("/scrape", function(req, res) {
           return res.json(err);
         })
       }
-      //   try{
-      //     return res.json(postObj);
-      //   }
-      //   catch
-      //   {
-      //     (err) => {res.json(err)
-      //   }
-      // }
-      // else {
-      //   console.log("couldn't get data from the site")
-      // }
     });
     res.send("finished scraping")
   })
