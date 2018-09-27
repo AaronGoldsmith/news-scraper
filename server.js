@@ -82,6 +82,7 @@ app.get("/scrape", function(req, res) {
       if(headline && anchor && shortsum){
         db.Article.create(postObj).then(function(dbArticle){
           console.log(dbArticle);
+          res.json(dbArticle);
         }).catch(function(err){
           return res.json(err);
         })
