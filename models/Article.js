@@ -9,7 +9,7 @@ var ArticleSchema = new Schema({
   // `title` is required and of type String
   headline: {
     type: String,
-    required: true
+    required: true,
   },
   anchor: {
     type: String,
@@ -19,13 +19,15 @@ var ArticleSchema = new Schema({
     type: String,
     required: true
   },
-  iamge:{
+  image:{
     type: String,
-    required: false
+    required: false,
+    default: "https://pbs.twimg.com/profile_images/875392068125769732/yrN-1k0Y.jpg"
   },
   unique:{
     type: String,
-    required: true
+    required: true,
+    unique: true
   }
   
 });

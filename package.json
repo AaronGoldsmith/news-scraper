@@ -1,5 +1,5 @@
 {
-  "name": "rename-me",
+  "name": "newsscraper",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -8,10 +8,8 @@
     "body-parser": "^1.15.0",
     "cheerio": "^1.0.0-rc.2",
     "express": "^4.13.4",
-    "mongojs": "^2.3.0",
     "mongoose": "^5.2.17",
-    "morgan": "^1.7.0",
-    "request": "^2.88.0"
+    "morgan": "^1.7.0"
   },
   "devDependencies": {},
   "scripts": {
@@ -19,6 +17,8 @@
     "start": "node server.js",
     "watch": "nodemon server.js"
   },
-  "author": "",
+ 
+  "author": "Aaron Goldsmith",
   "license": "ISC"
+
 }

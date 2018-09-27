@@ -8,13 +8,12 @@ h1 {
 }
 .delete {
   margin-left: 20px;
-  color: #333;
   cursor: pointer;
   text-align: left;
   font-size: 1.2em;
 }
 .delete:hover{
-  color: red;
+  color: white;
 }
 .data-title {
   cursor: pointer;
@@ -39,6 +38,9 @@ h1 {
   position:relative;
   top:-15px;
 }
+.featured{
+  height: 100px;
+}
 img#article{
   left: 20px;
   float:right;
@@ -47,6 +49,9 @@ img#article{
 }
 #wrapper{
   width: 50%;
+}
+.save:hover{
+  color: #F6C045 !important;
 }
 .full{
   position: relative;
