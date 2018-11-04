@@ -5,11 +5,12 @@
   "main": "server.js",
   "dependencies": {
     "axios": "^0.18.0",
-    "body-parser": "^1.15.0",
+    "body-parser": "^1.18.3",
     "cheerio": "^1.0.0-rc.2",
     "express": "^4.13.4",
     "mongoose": "^5.2.17",
-    "morgan": "^1.7.0"
+    "morgan": "^1.7.0",
+    "nodemon": "^1.18.5"
   },
   "devDependencies": {},
   "scripts": {
@@ -17,8 +18,6 @@
     "start": "node server.js",
     "watch": "nodemon server.js"
   },
- 
   "author": "Aaron Goldsmith",
   "license": "ISC"
-
 }
