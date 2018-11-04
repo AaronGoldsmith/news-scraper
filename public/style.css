@@ -19,16 +19,11 @@ h1 {
   cursor: pointer;
   font-size: 24px;
 }
-#results {
-  height: 600px;
-  overflow: auto;
 
-  margin: 20px auto;
-}
 
 .card{
-  height: auto;
-  text-overflow:ellipsis ;
+  height: 450px;
+  overflow: scroll;
 }
 #fav:hover{
   color:blue;
@@ -48,7 +43,11 @@ img#article{
   padding:20px;
 }
 #wrapper{
-  width: 50%;
+  display:inline-block;
+  min-height: 100%;
+  max-height: 750px;
+  width: 500px;
+  margin: 20px 0px;
 }
 .save:hover{
   color: #F6C045 !important;
@@ -57,4 +56,21 @@ img#article{
   position: relative;
   top: 20px;
   left: -15px;
+}
+.logo{
+  max-width: 100%;
+}
+#wrapper.activated{
+  width: 100%;
+}
+@media screen and (max-width:750px){
+    #wrapper{
+      width: 100%;
+    }
+    img#article{
+      left: 0px;
+      margin: 0px auto;
+      width: 100%;
+      max-width: inherit;
+    }
 }

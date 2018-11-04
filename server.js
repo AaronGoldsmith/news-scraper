@@ -1,12 +1,12 @@
 // Dependencies
-var bodyParser   = require("body-parser")//\   JSON parser
+var bodyParser   = require("body-parser")  //\   JSON parser
 var express = require("express");         //  |   server 
 var mongoose = require("mongoose");      //   |   ORM
 var axios   = require('axios');        //=====|   BKND
 var cheerio = require("cheerio");     //      |   DOM     
 var logger  = require('morgan')      //       |   LOGGER  
                                     //        |   model 
-var models  = require('./models/Article') 
+require('./models/Article') 
 var PORT = process.env.PORT || 3000;
 
 
@@ -69,7 +69,7 @@ app.get("/scrape", function(req, res) {
       const anchor = $(this).find("article").find("figure a").attr("href") // don't touch
       const unique = $(this).find("article").attr('id').split("_")[1] // don't touch
       const shortsum = $(this).children().find(".entry-summary").text() // don't touch
-      const image = $(this).children().find("source").attr('data-srcset') // don't touch
+      const image = $(this).children().find("source").attr('data-srcset') || 'https://picsum.photos/200/300' // don't touch
       var postObj = {
             headline : headline,
             anchor : anchor,
@@ -83,12 +83,14 @@ app.get("/scrape", function(req, res) {
           console.log(dbArticle);
           res.json(dbArticle);
         }).catch(function(err){
-          return res.json(err);
+          throw err;
         })
       }
     });
-    res.send("finished scraping")
-  })
+    // res.send("finished scraping")
+  }).catch(function(err){
+    throw err;
+  });
 });
 // Listen on port 3000
 app.listen(PORT, function() {
