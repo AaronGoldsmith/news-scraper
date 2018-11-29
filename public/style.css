@@ -23,7 +23,7 @@ h1 {
 
 .card{
   height: 450px;
-  overflow: scroll;
+  overflow: hidden;
 }
 #fav:hover{
   color:blue;
