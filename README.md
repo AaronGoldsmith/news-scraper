@@ -7,5 +7,4 @@ A news scraper for the Onion News
 
 **Demo**
 
-![Onion Scraper](https://imgur.com/cuPDmU7)
-
+![Onion Scraper](https://i.imgur.com/cuPDmU7.gif)
