@@ -4,8 +4,7 @@ var express = require("express");         //  |   server
 var mongoose = require("mongoose");      //   |   ORM
 var axios   = require('axios');        //=====|   BKND
 var cheerio = require("cheerio");     //      |   DOM     
-var logger  = require('morgan')      //       |   LOGGER  
-                                    //        |   model 
+                                     //       |   model 
 require('./models/Article') 
 var PORT = process.env.PORT || 3000;
 
@@ -14,7 +13,6 @@ var PORT = process.env.PORT || 3000;
  // Setup [ using body-parser, dev logging, static folder]
 
 var app = express();
-app.use(logger("dev"));
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true})
 );
